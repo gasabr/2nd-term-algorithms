@@ -1,25 +1,12 @@
-#include <stdio.h>
-#include <vector>
-#include <iostream>
+#include "dp.h"
 
-using std::vector;
-
-typedef vector<vector<int> > table;
-
-int dynamicSolution(const vector<int>&);
-
-void showBrackets(table&, int, int);
-
-using std::vector;
-using std::cout;
-
-int dynamicSolution(const vector<int>& sizeOfMatrix) {
+int dynamicSolution(vector<int>& sizeOfMatrix) {
     int n = (int)sizeOfMatrix.size();
-    table m;
+    vector<vector<int> > m;
     m.resize(n, vector<int>(n ,0));
 
-    table divideAt;
-    divideAt.resize(n-1, vector<int>(n-1, 0));
+    vector<vector<int> > divideAt;
+    divideAt.resize(n, vector<int>(n, 0));
 
     //динамически вычислить оптимальную стратегию, занести в массив s действие,
     //на котором мы делим последовательность скобками
