@@ -8,8 +8,10 @@ int main(){
 	std::vector<int> t;
 	std::vector<float> timeDP;
 	std::vector<float> timeBF;
-	
 
+	std::vector<float> avgTimeDP(MAX_SIZE);
+	std::vector<float> avgTimeBF(MAX_SIZE);
+	
 	for (int attempt = 0; attempt < ATTEMPS; attempt++){
 		timeDP.resize(MAX_SIZE);
 		timeBF.resize(MAX_SIZE);
@@ -20,6 +22,9 @@ int main(){
 
     	std::ofstream out(fileName);
     	int size = 2;
+
+    	out << "Размер" << "\t\tВремя ДП" << "\tВремя ПП: " << "\n";
+
     	while (size < MAX_SIZE-1){
     		
     		t.resize(size + 1);
@@ -44,9 +49,15 @@ int main(){
 			timeBF.at(size-2) /= CLOCKS_PER_SEC;			//количество секунд
 			timeBF.at(size-2) *= 1000;						//перевод в мc
 
-			out << "Размер: " << size << "\n";
-			out << "Время ДП: " << timeDP.at(size-2) << "\n";
-			out << "Время ПП: " << timeBF.at(size-2) << "\n";
+			avgTimeDP.at(size-2) += timeDP.at(size-2);
+			avgTimeBF.at(size-2) += timeBF.at(size-2);
+
+			cout.width(6);
+			out << size << "\t\t";
+			cout.width(10);
+			out << timeDP.at(size-2)<< "\t\t";
+			cout.width(10);
+			out  << timeBF.at(size-2) << "\n";
 
 			out << "\n";
 			
@@ -54,5 +65,18 @@ int main(){
     	}
     	t.clear();
     	timeDP.clear();
+	}
+
+	std::ofstream outAVG("results/avg.txt");
+	std::ofstream forExcel("results/forExcel.txt");
+	int i = 2;
+	while (i < MAX_SIZE-1){
+		outAVG << "Размер: " << i << "\n";
+		outAVG << "Среднее время для алгоритма\n";
+		outAVG << "ДП: " << avgTimeDP.at(i-2) << "\n";
+		outAVG << "ПП: " << avgTimeBF.at(i-2) << "\n";
+		forExcel << avgTimeDP.at(i-2) << "\t" << avgTimeBF.at(i-2) << "\n";
+		outAVG << "\n";
+		i++;
 	}
 }
