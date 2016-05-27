@@ -7,10 +7,12 @@ int main(){
 
 	std::vector<int> t;
 	std::vector<float> timeDP;
+	std::vector<float> timeBF;
 	
 
 	for (int attempt = 0; attempt < ATTEMPS; attempt++){
 		timeDP.resize(MAX_SIZE);
+		timeBF.resize(MAX_SIZE);
 
 		std::string fileName;
 		fileName = "results/";
@@ -34,8 +36,17 @@ int main(){
 			timeDP.at(size-2) /= CLOCKS_PER_SEC;			//количество секунд
 			timeDP.at(size-2) *= 1000;						//перевод в мc
 
+			time_t BF_start = clock();
+			bruteForce(t);
+			time_t BF_end = clock();
+
+			timeBF.at(size-2) = float(BF_end - BF_start); 	//количество тактов
+			timeBF.at(size-2) /= CLOCKS_PER_SEC;			//количество секунд
+			timeBF.at(size-2) *= 1000;						//перевод в мc
+
 			out << "Размер: " << size << "\n";
 			out << "Время ДП: " << timeDP.at(size-2) << "\n";
+			out << "Время ПП: " << timeBF.at(size-2) << "\n";
 
 			out << "\n";
 			

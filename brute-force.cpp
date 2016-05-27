@@ -9,7 +9,6 @@
 #include "brute-force.h"
 
 void bruteForce(vector<int>& sizeOfMatrix){
-	cout << "start of BF\n";
 
     size_t seqSize = sizeOfMatrix.size()-2;     //количество матриц + 1
     std::vector<int> row(seqSize);				//строка - одна последовательность
@@ -36,8 +35,6 @@ void bruteForce(vector<int>& sizeOfMatrix){
         cout << "\n";
     }
 #endif //DEBUG
-	cout << "end of BF\n";
-
 }
 
 int countSeq(vector<int> sizes, vector<int>& seq){
