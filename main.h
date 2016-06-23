@@ -12,6 +12,11 @@
 #define MAX_SIZE 12
 #define ATTEMPS 6
 
+/*
+#define DEBUG_ALGORITHMS 1	// to see algorithms in action 
+#define PRINT_ANSWER 1		// to see results on each iteration
+*/
+
 using std::string;
 using std::cin;
 using std::cout;

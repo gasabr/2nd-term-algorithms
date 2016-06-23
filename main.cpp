@@ -1,16 +1,18 @@
 #include "main.h"
 
 int main(){
-// Random engine
+/* Random engine */
 	std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dist(1,40);
 
-	std::vector<int> t;
+    std::vector<int> t;
+
+/* Storing time on each attempt */
 	std::vector<float> timeDP;
 	std::vector<float> timeBF;
 
-// Storing average time
+/* Storing average time */
 	std::vector<float> avgTimeDP(MAX_SIZE);
 	std::vector<float> avgTimeBF(MAX_SIZE);
 	
@@ -41,29 +43,29 @@ int main(){
 			dynamicSolution(t);
 			time_t DP_end = clock();
 
-			timeDP.at(size-2) = float(DP_end - DP_start); 	// количество тактов
-			timeDP.at(size-2) /= CLOCKS_PER_SEC;			// количество секунд
-			timeDP.at(size-2) *= 1000;						// перевод в мc
+			timeDP.at(size) = float(DP_end - DP_start); 	// количество тактов
+			timeDP.at(size) /= CLOCKS_PER_SEC;			// количество секунд
+			timeDP.at(size) *= 1000;						// перевод в мc
 
 			/* Counting time to brute force */
 			time_t BF_start = clock();
 			bruteForce(t);
 			time_t BF_end = clock();
 
-			timeBF.at(size-2) = float(BF_end - BF_start); 	// количество тактов
-			timeBF.at(size-2) /= CLOCKS_PER_SEC;			// количество секунд
-			timeBF.at(size-2) *= 1000;						// перевод в мc
+			timeBF.at(size) = float(BF_end - BF_start); 	// количество тактов
+			timeBF.at(size) /= CLOCKS_PER_SEC;			// количество секунд
+			timeBF.at(size) *= 1000;						// перевод в мc
 
 			/* fill vectors with time */
-			avgTimeDP.at(size-2) += timeDP.at(size-2);
-			avgTimeBF.at(size-2) += timeBF.at(size-2);
+			avgTimeDP.at(size) += timeDP.at(size);
+			avgTimeBF.at(size) += timeBF.at(size);
 
 			cout.width(6);
 			out << size << "\t\t";
 			cout.width(10);
-			out << timeDP.at(size-2) << "\t\t";
+			out << timeDP.at(size) << "\t\t";
 			cout.width(10);
-			out  << timeBF.at(size-2) << "\n";
+			out  << timeBF.at(size) << "\n";
 
 			out << "\n";
 			
@@ -79,9 +81,9 @@ int main(){
 	while (i < MAX_SIZE-1){
 		outAVG << "Размер: " << i << "\n";
 		outAVG << "Среднее время для алгоритма\n";
-		outAVG << "ДП: " << avgTimeDP.at(i-2) << "\n";
-		outAVG << "ПП: " << avgTimeBF.at(i-2) << "\n";
-		forExcel << avgTimeDP.at(i-2) << "\t" << avgTimeBF.at(i-2) << "\n";
+		outAVG << "ДП: " << avgTimeDP.at(i) / ATTEMPS << "\n";
+		outAVG << "ПП: " << avgTimeBF.at(i) / ATTEMPS << "\n";
+		forExcel << avgTimeDP.at(i) / ATTEMPS << "\t" << avgTimeBF.at(i) / ATTEMPS << "\n";
 		outAVG << "\n";
 		i++;
 	}

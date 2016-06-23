@@ -1,22 +1,14 @@
-//
-//  brute-force.cpp
-//  curs-ada
-//
-//  Created by Gleb Abroskin on 15/05/16.
-//  Copyright © 2016 Gleb Abroskin. All rights reserved.
-//
-
 #include "brute-force.h"
 
 void bruteForce(vector<int>& sizeOfMatrix){
 
-    size_t seqSize = sizeOfMatrix.size()-2;     //количество матриц + 1
-    std::vector<int> row(seqSize);				//строка - одна последовательность
+    size_t seqSize = sizeOfMatrix.size()-2;     // amount of matrixes + 1
+    std::vector<int> row(seqSize);
 	std::vector<int> solution(seqSize);
     
 	long result = std::numeric_limits<long>::max();
 	
-    //началная инициализация первой последовательности
+    // start init of sequence (1,2..n)
     for (int i = 0; i < seqSize; i ++)
         row[i] = i+1;
 
@@ -28,15 +20,16 @@ void bruteForce(vector<int>& sizeOfMatrix){
 		}
 	}while(std::next_permutation(row.begin(), row.end()));
 
-#ifdef MY_DEBUG
+#ifdef DEBUG_ALGORITHMS
     for (size_t i = 0; i < seqsAmount; ++i){
         for (size_t j = 1; j <= seqSize; ++j)
             std::cout << seq[i][j];
         cout << "\n";
     }
-#endif //DEBUG
+#endif // DEBUG_ALGORITHMS
 }
 
+/* Compute amount of operation in given sequence */
 int countSeq(vector<int> sizes, vector<int>& seq){
 	int count = 0;
 	for (int i = 0; i < seq.size(); i++){
@@ -52,6 +45,7 @@ int countSeq(vector<int> sizes, vector<int>& seq){
 	return count;
 }
 
+/* function prints created sequnces of operations */
 void showSeq(vector<int> answer){
 	int i;
 	vector<Bracket> seq(2*(answer.size()+1));
@@ -63,10 +57,10 @@ void showSeq(vector<int> answer){
 		openBracketIndex = 2*(answer[i] - 1);
 		closeBracketIndex = 2*answer[i] + 1;
 
-		while (seq[openBracketIndex].isInside())
+		while ( seq[openBracketIndex].isInside() )
 			openBracketIndex -= 2;
 
-		while (seq[closeBracketIndex].isInside())
+		while ( seq[closeBracketIndex].isInside() )
 			closeBracketIndex += 2;
 
 		seq[openBracketIndex].incCount();

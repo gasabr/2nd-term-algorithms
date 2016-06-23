@@ -8,15 +8,12 @@ int dynamicSolution(vector<int>& sizeOfMatrix) {
     vector<vector<int> > divideAt;
     divideAt.resize(n, vector<int>(n, 0));
 
-    //динамически вычислить оптимальную стратегию, занести в массив s действие,
-    //на котором мы делим последовательность скобками
     for (int l=2; l <= n; l++){
         for (int i = 1; i < (n-l+1); i++){
             int j = i + l - 1;
             m[i][j] = 999999999;
 
             for (int k = i; k < j; k++){
-                //дин
                 int temp = m[i][k] + m[k+1][j] + sizeOfMatrix[i-1]*sizeOfMatrix[k]*sizeOfMatrix[j];
                 if (temp < m[i][j]){
                     m[i][j] = temp;
@@ -31,8 +28,8 @@ int dynamicSolution(vector<int>& sizeOfMatrix) {
     cout << "\n";
 #endif //PRINT_ANSWER
 
-    //вывод таблицы вариантов
-#ifdef MY_DEBUG
+/* Output result table */
+#ifdef DEBUG_ALGORITHMS
     for(int i=1; i < n; i++){
         for(int j=0; j < n; j++){
             if (i <= j){
@@ -44,7 +41,7 @@ int dynamicSolution(vector<int>& sizeOfMatrix) {
         }
         cout << "\n";
     }
-    //вывод таблицы расстановки скобок
+/* Output brackets sequence table */
     for (int i = 1; i < n; ++i){
         for (size_t j = 0; j < n; ++j){
             cout.width(3);

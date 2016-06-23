@@ -1,11 +1,3 @@
-//
-//  brute-force.hpp
-//  curs-ada
-//
-//  Created by Gleb Abroskin on 15/05/16.
-//  Copyright © 2016 Gleb Abroskin. All rights reserved.
-//
-
 #ifndef brute_force_h
 #define brute_force_h
 
@@ -30,5 +22,3 @@ void showSeq(vector<int>);
 void printBrackets (int, int);
 
 #endif /* brute_force_hpp */
-
-//func(int& arr, int i)
