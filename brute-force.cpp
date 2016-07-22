@@ -1,8 +1,8 @@
 #include "brute-force.h"
 
-void bruteForce(vector<int>& sizeOfMatrix){
-
-    size_t seqSize = sizeOfMatrix.size()-2;     // amount of matrixes + 1
+void bruteForce(const vector<int>& inputOrigin){
+	vector<int> inputCopy(inputOrigin);
+    size_t seqSize = inputOrigin.size()-2;     // amount of matrixes + 1
     std::vector<int> row(seqSize);
 	std::vector<int> solution(seqSize);
     
@@ -13,7 +13,8 @@ void bruteForce(vector<int>& sizeOfMatrix){
         row[i] = i+1;
 
     do{
-		long temp = countSeq(sizeOfMatrix, row);
+		long temp = countSeq(inputCopy, row);
+		inputCopy = inputOrigin;
 		if (temp < result){
 			result = temp;
 			solution = row;
@@ -27,19 +28,21 @@ void bruteForce(vector<int>& sizeOfMatrix){
         cout << "\n";
     }
 #endif // DEBUG_ALGORITHMS
+
 }
 
 /* Compute amount of operation in given sequence */
-int countSeq(vector<int> sizes, vector<int>& seq){
+/* QUESTION: is copy of sizes */
+int countSeq(vector<int>& sizes, const vector<int>& seq){
 	int count = 0;
-	for (int i = 0; i < seq.size(); i++){
+	for (size_t i = 0; i < seq.size(); i++){
 		int left = seq[i]-1;
 		while (sizes[left] == 0)
 			left--;
 		int right = seq[i]+1;
 		while (sizes[right] == 0)
 			right++;
-		count += sizes[left] * sizes[ seq[i] ] * sizes[right];
+		count += sizes[left] * sizes[seq[i]] * sizes[right];
 		sizes[ seq[i] ] = 0;
 	}
 	return count;
@@ -51,7 +54,6 @@ void showSeq(vector<int> answer){
 	vector<Bracket> seq(2*(answer.size()+1));
 	int openBracketIndex;
 	int closeBracketIndex;
-
 
 	for (i = 0; i < answer.size(); i++){
 		openBracketIndex = 2*(answer[i] - 1);

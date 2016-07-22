@@ -16,9 +16,9 @@ using std::cout;
 
 typedef vector<int> solution;
 
-void bruteForce(vector<int>&);
-int countSeq(vector<int>, vector<int>&);
+void bruteForce(const vector<int>&);
+int countSeq(vector<int>&, const vector<int>&);
 void showSeq(vector<int>);
 void printBrackets (int, int);
 
-#endif /* brute_force_hpp */
+#endif /* brute_force_h */
