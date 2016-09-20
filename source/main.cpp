@@ -23,7 +23,7 @@ int main(){
 
 		/* Create new files for each attempt */
 		std::string fileName;
-		fileName = "results/";
+		fileName = "../results/";
     	fileName += "attempt#" + std::to_string(attempt+1)  + ".txt";
 
     	std::ofstream out(fileName);
@@ -74,8 +74,8 @@ int main(){
 	}
 
 #ifdef FILE_OUTPUT
-	std::ofstream outAVG("results/avg.txt");
-	std::ofstream forExcel("results/forExcel.txt");
+	std::ofstream outAVG("../results/avg.txt", "w+");
+	std::ofstream forExcel("../results/forExcel.txt", "w+");
 	int i = 2;
 	while (i < MAX_SIZE-1){
 		outAVG << "Размер: " << i << "\n";
