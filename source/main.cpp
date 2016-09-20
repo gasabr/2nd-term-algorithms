@@ -74,8 +74,8 @@ int main(){
 	}
 
 #ifdef FILE_OUTPUT
-	std::ofstream outAVG("../results/avg.txt", "w+");
-	std::ofstream forExcel("../results/forExcel.txt", "w+");
+	std::ofstream outAVG("../results/avg.txt");
+	std::ofstream forExcel("../results/forExcel.txt");
 	int i = 2;
 	while (i < MAX_SIZE-1){
 		outAVG << "Размер: " << i << "\n";
